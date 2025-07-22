@@ -3,6 +3,7 @@ const { StringSession } = require("telegram/sessions");
 const fs = require("fs");
 const input = require("input");
 const http = require("http");
+const https = require("https");
 
 // بيانات الدخول تلقائية للسيرفر
 const PHONE_NUMBER = "+966XXXXXXXXX"; // ضع رقمك هنا
@@ -154,3 +155,12 @@ http.createServer((req, res) => {
 }).listen(PORT, () => {
   console.log(`🌐 HTTP Server running on port ${PORT}`);
 });
+
+const KEEP_ALIVE_URL = "https://solll-1.onrender.com";
+setInterval(() => {
+  https.get(KEEP_ALIVE_URL, (res) => {
+    console.log(`🔄 Keep Alive Ping: ${KEEP_ALIVE_URL} - Status: ${res.statusCode}`);
+  }).on("error", (e) => {
+    console.error(`❌ Keep Alive Error: ${e.message}`);
+  });
+}, 10 * 60 * 1000); // كل 10 دقائق
