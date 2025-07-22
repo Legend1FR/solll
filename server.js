@@ -2,6 +2,7 @@ const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const fs = require("fs");
 const input = require("input");
+const http = require("http");
 
 // بيانات الدخول تلقائية للسيرفر
 const PHONE_NUMBER = "+966XXXXXXXXX"; // ضع رقمك هنا
@@ -145,3 +146,11 @@ async function tradeInGMGNBot(client, token) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("🚀 البوت يعمل الآن 24 ساعة على السيرفر!\n");
+}).listen(PORT, () => {
+  console.log(`🌐 HTTP Server running on port ${PORT}`);
+});
